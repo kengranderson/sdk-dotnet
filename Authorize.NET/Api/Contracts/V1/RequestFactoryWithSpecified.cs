@@ -28,7 +28,7 @@
         {
             if (null != argument)
             {
-                if (argument.expirationTimeStamp!=null) { argument.expirationTimeStampSpecified = true; }
+                argument.expirationTimeStampSpecified = true;
             }
         }
         

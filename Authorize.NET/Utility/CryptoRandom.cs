@@ -5,11 +5,12 @@ namespace AuthorizeNet
 {
     /// <summary>
     /// Source Code from MSDN article http://msdn.microsoft.com/en-us/magazine/cc163367.aspx
+    /// Updated to use newer random number classes
     /// </summary>
     public class CryptoRandom
     {
-        RNGCryptoServiceProvider _rng = new RNGCryptoServiceProvider();
-        byte[] _uint32Buffer = new byte[4];
+        readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
+        readonly byte[] _uint32Buffer = new byte[4];
 
         public CryptoRandom() { }
         public CryptoRandom(int ignoredSeed) { }
@@ -23,14 +24,14 @@ namespace AuthorizeNet
         public int Next(int maxValue)
         {
             if (maxValue < 0)
-                throw new ArgumentOutOfRangeException("maxValue");
+                throw new ArgumentOutOfRangeException(nameof(maxValue));
             return Next(0, maxValue);
         }
 
         public int Next(int minValue, int maxValue)
         {
             if (minValue > maxValue)
-                throw new ArgumentOutOfRangeException("minValue");
+                throw new ArgumentOutOfRangeException(nameof(minValue));
             if (minValue == maxValue) return minValue;
             long diff = maxValue - minValue;
             while (true)
@@ -56,7 +57,7 @@ namespace AuthorizeNet
 
         public void NextBytes(byte[] buffer)
         {
-            if (buffer == null) throw new ArgumentNullException("buffer");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
             _rng.GetBytes(buffer);
         }
     }
