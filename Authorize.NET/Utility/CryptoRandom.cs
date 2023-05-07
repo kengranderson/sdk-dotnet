@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Security.Cryptography;
 
 namespace AuthorizeNet
@@ -11,42 +8,41 @@ namespace AuthorizeNet
     /// </summary>
     public class CryptoRandom
     {
-        private RNGCryptoServiceProvider _rng =
-        new RNGCryptoServiceProvider();
-        private byte[] _uint32Buffer = new byte[4];
+        RNGCryptoServiceProvider _rng = new RNGCryptoServiceProvider();
+        byte[] _uint32Buffer = new byte[4];
 
         public CryptoRandom() { }
-        public CryptoRandom(Int32 ignoredSeed) { }
+        public CryptoRandom(int ignoredSeed) { }
 
-        public Int32 Next()
+        public int Next()
         {
             _rng.GetBytes(_uint32Buffer);
             return BitConverter.ToInt32(_uint32Buffer, 0) & 0x7FFFFFFF;
         }
 
-        public Int32 Next(Int32 maxValue)
+        public int Next(int maxValue)
         {
             if (maxValue < 0)
                 throw new ArgumentOutOfRangeException("maxValue");
             return Next(0, maxValue);
         }
 
-        public Int32 Next(Int32 minValue, Int32 maxValue)
+        public int Next(int minValue, int maxValue)
         {
             if (minValue > maxValue)
                 throw new ArgumentOutOfRangeException("minValue");
             if (minValue == maxValue) return minValue;
-            Int64 diff = maxValue - minValue;
+            long diff = maxValue - minValue;
             while (true)
             {
                 _rng.GetBytes(_uint32Buffer);
-                UInt32 rand = BitConverter.ToUInt32(_uint32Buffer, 0);
+                uint rand = BitConverter.ToUInt32(_uint32Buffer, 0);
 
-                Int64 max = (1 + (Int64)UInt32.MaxValue);
-                Int64 remainder = max % diff;
+                long max = (1 + (long)uint.MaxValue);
+                long remainder = max % diff;
                 if (rand < max - remainder)
                 {
-                    return (Int32)(minValue + (rand % diff));
+                    return (int)(minValue + (rand % diff));
                 }
             }
         }
@@ -54,8 +50,8 @@ namespace AuthorizeNet
         public double NextDouble()
         {
             _rng.GetBytes(_uint32Buffer);
-            UInt32 rand = BitConverter.ToUInt32(_uint32Buffer, 0);
-            return rand / (1.0 + UInt32.MaxValue);
+            uint rand = BitConverter.ToUInt32(_uint32Buffer, 0);
+            return rand / (1.0 + uint.MaxValue);
         }
 
         public void NextBytes(byte[] buffer)
