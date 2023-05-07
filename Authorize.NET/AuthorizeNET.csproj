@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
-    <Version>5.0.0</Version>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>6.0.0</Version>
     <Authors>Ken Granderson</Authors>
     <Company>Blackfacts.com</Company>
-    <Copyright>©2021 Blackfacts.com</Copyright>
+    <Copyright>©2023 Blackfacts.com</Copyright>
     <RootNamespace>AuthorizeNet</RootNamespace>
-    <Description>Authorize.Net net5.0 port</Description>
+    <Description>Authorize.Net net6.0 port</Description>
     <PackageIconUrl>https://blackfacts.com/img/eye-rg.png</PackageIconUrl>
   </PropertyGroup>
 </Project>

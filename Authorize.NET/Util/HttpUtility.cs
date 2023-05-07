@@ -18,7 +18,7 @@ namespace AuthorizeNet.Util
         private static bool _proxySet;// = false;
 
         static readonly bool UseProxy = AuthorizeNet.Environment.getBooleanProperty(Constants.HttpsUseProxy);
-        static readonly String ProxyHost = AuthorizeNet.Environment.GetProperty(Constants.HttpsProxyHost);
+        static readonly string ProxyHost = AuthorizeNet.Environment.GetProperty(Constants.HttpsProxyHost);
         static readonly int ProxyPort = AuthorizeNet.Environment.getIntProperty(Constants.HttpsProxyPort);
 
         private static Uri GetPostUrl(AuthorizeNet.Environment env) 
@@ -67,7 +67,7 @@ namespace AuthorizeNet.Util
 	        }
 
             // Get the response
-            String responseAsString = null;
+            string responseAsString = null;
             Logger.debug(string.Format("Retreiving Response from Url: '{0}'", postUrl));
             
             using (var webResponse = webRequest.GetResponse())
@@ -112,7 +112,7 @@ namespace AuthorizeNet.Util
                     var responseType = typeof (TS);
                     var deSerializer = new XmlSerializer(responseType);
 
-                    Object deSerializedObject;
+                    object deSerializedObject;
                     try
                     {
                         // try deserializing to the expected response type
@@ -155,7 +155,7 @@ namespace AuthorizeNet.Util
 
             if (UseProxy)
             {
-                var proxyUri = new Uri(string.Format("{0}://{1}:{2}", Constants.ProxyProtocol, ProxyHost, ProxyPort));
+                var proxyUri = new Uri($"{Constants.ProxyProtocol}://{ProxyHost}:{ProxyPort}");
                 if (!_proxySet)
                 {
                     Logger.info(string.Format("Setting up proxy to URL: '{0}'", proxyUri));
